@@ -15,15 +15,16 @@ var articlesRouter = require('./routes/articles');
 var profilesRouter = require('./routes/profiles');
 var tagsRouter = require('./routes/tags');
 var userRouter = require('./routes/user');
+var imageRouter = require('./routes/imageUpload');
 
 // Connecting to database
-mongoose.connect(
-  process.env.MONGO_DB,
+
+const DB = process.env.mongolocal
+mongoose.connect(DB,
   { useNewUrlParser: true, useUnifiedTopology: true },
   (error) => {
-    console.log('Connected to database: ', error ? false : true);
-  }
-);
+    console.log(error ? error : 'Connected to database: true');
+  })
 
 // Instantiating the application
 var app = express();
@@ -42,6 +43,7 @@ app.use('/api/v1/articles', articlesRouter);
 app.use('/api/v1/profiles', profilesRouter);
 app.use('/api/v1/tags', tagsRouter);
 app.use('/api/v1/user', userRouter);
+app.use('/imageUpload', imageRouter);
 
 // Catch 404 and forward them to error handler
 app.use(function (req, res, next) {

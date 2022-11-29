@@ -2,7 +2,10 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
 router.get('/', (req, res, next) => {
-  res.render('index');
+  User.find({},(err,users)=>{
+    console.log(users);
+    res.json({users})
+  })
 });
 
 // SignUp
@@ -12,7 +15,7 @@ router.post('/signup', async (req, res, next) => {
     var user = await User.create(req.body.user);
     res
       .status(200)
-      .json({ name: user.name, message: 'registered successfully' });
+      .json({ user: user, message: 'registered successfully' });
   } catch (error) {
     if (error) {
       if (error.code === 11000) {
