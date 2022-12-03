@@ -19,7 +19,7 @@ var imageRouter = require('./routes/imageUpload');
 
 // Connecting to database
 
-const DB = process.env.mongolocal
+const DB = process.env.mongoAtlasUrl
 mongoose.connect(DB,
   { useNewUrlParser: true, useUnifiedTopology: true },
   (error) => {
